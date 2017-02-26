@@ -1,10 +1,22 @@
-require "./lib/NAME.rb"
-require "test/unit"
+require_relative '../lib/watwa/main.rb'
+require 'test/unit'
 
-class TestNAME < Test::Unit::TestCase
+# Test class for all watwa classes and methods
+class TestWatwa < Test::Unit::TestCase
+  # Tests for the table class
+  def test_table
+    test_table = Watwa::Table.new
+    test_table.build_table
 
-  def test_sample
-    assert_equal(4, 2+2)
+    assert_equal test_table.table.class, TTY::Table
+    assert_equal 32, test_table.convert_to_fahrenheit(0)
+    assert_equal 68, test_table.convert_to_fahrenheit(20)
   end
 
+  # Tests for the Forecast class
+  def test_forecast
+    test_forecast = Watwa::Forecast.new
+
+    assert_equal test_forecast.class, Watwa::Forecast
+  end
 end

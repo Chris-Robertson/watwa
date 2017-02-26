@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name           = 'watwa'
-  spec.version        = '0.0.3'
+  spec.version        = '0.0.4'
   spec.authors        = ['Chris Robertson']
   spec.email          = ['chrisxrobertson@gmail.com']
   spec.summary        = 'WATWA, A Termainl Weather App'

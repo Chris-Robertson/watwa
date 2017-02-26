@@ -8,6 +8,9 @@ module Watwa
 
   # Builds a table containing the forecast
   class Table
+    # Table array that holds forecast
+    attr_accessor :table
+
     def initialize
       @table = TTY::Table.new header: ['Day',
                                        'Temp ' + 176.chr(UTF_8) + 'C',
