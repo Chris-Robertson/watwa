@@ -13,8 +13,7 @@ module Watwa
 
     def initialize
       @table = TTY::Table.new header: ['Day',
-                                       'Temp ' + 176.chr(UTF_8) + 'C',
-                                       'Temp ' + 176.chr(UTF_8) + 'F']
+                                       'Max ' + 176.chr(UTF_8) + 'C']
       @set_colour = SetColour.new
       @forecast = Forecast.new.response.forecasts
     end
@@ -30,8 +29,7 @@ module Watwa
       @forecast.each do |item|
         high = item.high
         @table << [item.day + ' ' + item.date.day.to_s,
-                   @set_colour.colour_c(high),
-                   @set_colour.colour_f(convert_to_fahrenheit(high).round)]
+                   @set_colour.colour_c(high)]
       end
     end
 
@@ -44,10 +42,10 @@ module Watwa
       puts @table.render(:unicode, padding: [0, 1, 0, 1])
     end
 
-    # Converts celsius to fahrenheit
-    def convert_to_fahrenheit(temp)
-      temp * 1.8 + 32
-    end
+    # # Converts celsius to fahrenheit
+    # def convert_to_fahrenheit(temp)
+    #   temp * 1.8 + 32
+    # end
   end
 
   # Pulls weather data from Yahoo! Weather API via the weather-api gem
