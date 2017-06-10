@@ -13,7 +13,8 @@ module Watwa
 
     def initialize
       @table = TTY::Table.new header: ['Day',
-                                       'Max ' + 176.chr(UTF_8) + 'C']
+                                       'Max ' + 176.chr(UTF_8) + 'C',
+                                       'Min ' + 176.chr(UTF_8) + 'C']
       @set_colour = SetColour.new
       @forecast = Forecast.new.response.forecasts
     end
@@ -28,8 +29,10 @@ module Watwa
     def build_table
       @forecast.each do |item|
         high = item.high
+        low = item.low
         @table << [item.day + ' ' + item.date.day.to_s,
-                   @set_colour.colour_c(high)]
+                   @set_colour.colour_c(high),
+                   @set_colour.colour_c(low)]
       end
     end
 
@@ -69,18 +72,9 @@ module Watwa
     def colour_c(temp)
       if temp >= 30
         @pastel.red(temp)
+      elsif temp < 10
+        @pastel.bright_blue(temp)
       elsif temp < 18
-        @pastel.cyan(temp)
-      else
-        @pastel.yellow(temp)
-      end
-    end
-
-    # Sets colour for fahrenheit temperature ranges
-    def colour_f(temp)
-      if temp >= 86
-        @pastel.red(temp)
-      elsif temp < 68
         @pastel.cyan(temp)
       else
         @pastel.yellow(temp)
